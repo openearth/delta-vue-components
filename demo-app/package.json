@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "component-library": "file:../component-library",
     "core-js": "^3.6.5",
     "mapbox-gl": "^1.11.1",
     "vue": "^2.6.11",

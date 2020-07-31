@@ -8,11 +8,15 @@
   <h2>
     Welcome
   </h2>
+  <map-layer-controls />
 </v-navigation-drawer>
 </template>
 
 <script>
+import { MapLayerControls } from 'component-library';
 export default {
-
+  components: {
+    MapLayerControls,
+  },
 };
 </script>
