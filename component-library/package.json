@@ -12,6 +12,7 @@
   },
   "peerDependencies": {
     "@vue/composition-api": "1.0.0-beta.18",
+    "sortablejs": "1.12.0",
     "vue": "^2.6.11",
     "vuetify": "^2.2.11"
   },
