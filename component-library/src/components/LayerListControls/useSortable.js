@@ -1,4 +1,4 @@
-import { watch, nextTick } from '@vue/composition-api'
+import { ref, watch, nextTick, onMounted } from '@vue/composition-api'
 import { Sortable } from "sortablejs";
 import reorderLayerArray from "./reorder-layers-array";
 
@@ -9,6 +9,7 @@ export default function useSortable(layers, componentRoot, openItems) {
   const handleSelector = '.sortable-handle'
   const callbacks = []
 
+  const isMounted = ref(false)
   let sortInstances = []
 
   const config = {
@@ -35,18 +36,29 @@ export default function useSortable(layers, componentRoot, openItems) {
     callbacks.forEach(fn => fn(reorderdLayers))
   }
 
-  watch(openItems, async openItems => {
-    await nextTick()
-    sortInstances.forEach(instance => instance.destroy())
-    sortInstances = []
+  watch(
+    [openItems, isMounted],
+    async ([openItems, isMounted]) => {
+      if (openItems === [] || isMounted === false) return
 
-    const $rootEl = componentRoot.querySelector(treeViewRootSelector);
-    const $childEls = componentRoot.querySelectorAll(treeViewChildSelector);
-    const $sortableEls = [$rootEl, ...$childEls];
+      await nextTick()
+      sortInstances.forEach(instance => instance.destroy())
+      sortInstances = []
 
-    $sortableEls.forEach(el => {
-      sortInstances.push(new Sortable(el, config))
-    });
+      const $rootEl = componentRoot.value.querySelector(treeViewRootSelector);
+      const $childEls = componentRoot.value.querySelectorAll(treeViewChildSelector);
+      const $sortableEls = [$rootEl, ...$childEls];
+
+      $sortableEls.forEach(el => {
+        if (el) {
+          sortInstances.push(new Sortable(el, config))
+        }
+      });
+    }
+  )
+
+  onMounted(async () => {
+    isMounted.value = true  
   })
 
   return {

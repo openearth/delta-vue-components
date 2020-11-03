@@ -1,5 +1,5 @@
 <template>
-  <div v-if="layersAreProvided">
+  <div v-if="layersAreProvided" ref="root">
     <v-treeview
       :open.sync="openItems"
       selectable
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { watch, nextTick, ref, toRefs, computed } from '@vue/composition-api'
+import { watch, ref, toRefs, computed } from '@vue/composition-api'
 import addIndex from './add-index'
 import findInTree from './find-in-tree'
 import addParentIdToLayers from './add-parent-id-to-layers'
@@ -44,27 +44,29 @@ import useSortable from './useSortable'
 export default {
   props: { layers: Array },
   setup(props, context) {
+    const root = ref(null)
     const openItems = ref([])
     const { layers } = toRefs(props)
     const layersWithParents = computed(() => addParentIdToLayers(layers.value))
     const layersAreProvided = computed(() => layersWithParents.value.length > 0)
     const { setSelectedIds, selectedIds } = useSelected()
     const { activeLegend, setActiveLegend } = useLegend(selectedIds)
-    const { onSortingChange } = useSortable(layers, context.root.$el, openItems)
+    const { onSortingChange } = useSortable(layers, root, openItems)
 
     const sortedSelectedLayers = computed(() => {
       const withIndex = addIndex(layers.value)
       return selectedIds.value
         .map(id => findInTree(withIndex, 'id', id))
         .sort((a, b) => b.index - a.index)
-        .map(({index, ...layer}) => layer)
+        /* eslint-disable no-unused-vars */
+        .map(({ index, ...layer }) => layer)
     })
 
     onSortingChange(sortedLayers => context.emit('layer-sorting-change', sortedLayers))
     watch(activeLegend, newActiveLegend => context.emit('legend-change', newActiveLegend))
     watch(sortedSelectedLayers, sortedSelected => context.emit('active-layers-change', sortedSelected))
 
-    return { openItems, layersAreProvided, activeLegend, setActiveLegend, setSelectedIds, layersWithParents }
+    return { root, openItems, layersAreProvided, activeLegend, setActiveLegend, setSelectedIds, layersWithParents }
   },
 }
 </script>
