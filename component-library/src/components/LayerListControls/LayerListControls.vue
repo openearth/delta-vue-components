@@ -41,6 +41,11 @@ import useLegend from './useLegend'
 import useSelected from './useSelected'
 import useSortable from './useSortable'
 
+const deleteIndex = item => {
+  delete item.index
+  return item
+}
+
 export default {
   props: { layers: Array },
   setup(props, context) {
@@ -58,8 +63,7 @@ export default {
       return selectedIds.value
         .map(id => findInTree(withIndex, 'id', id))
         .sort((a, b) => b.index - a.index)
-        /* eslint-disable no-unused-vars */
-        .map(({ index, ...layer }) => layer)
+        .map(deleteIndex)
     })
 
     onSortingChange(sortedLayers => context.emit('layer-sorting-change', sortedLayers))
