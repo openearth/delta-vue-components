@@ -5,6 +5,9 @@
     "lerna": "^3.22.1"
   },
   "scripts": {
-    "start": "lerna run start --stream --scope=demo-app"
+    "start": "npm run start:demo-app",
+    "start:demo-app": "lerna run start --stream --scope=demo-app",
+    "build:demo-app": "lerna run build --stream --scope=demo-app",
+    "lint": "lerna run lint --ignore demo-app"
   }
 }
