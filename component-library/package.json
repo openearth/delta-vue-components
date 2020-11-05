@@ -2,15 +2,17 @@
   "name": "component-library",
   "version": "0.1.0",
   "private": true,
-  "main": "./dist/delta-vue-components.common.js",
+  "main": "./src/main.js",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name delta-vue-components src/main.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@voorhoede/deltares-design-tokens": "^1.1.0",
-    "core-js": "^3.6.5",
+    "@voorhoede/deltares-design-tokens": "^1.1.0"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "1.0.0-beta.18",
+    "sortablejs": "1.12.0",
     "vue": "^2.6.11",
     "vuetify": "^2.2.11"
   },
