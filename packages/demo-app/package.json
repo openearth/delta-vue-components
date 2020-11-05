@@ -1,0 +1,29 @@
+{
+  "name": "demo-app",
+  "version": "0.0.0",
+  "description": "Demo app to showcase @deltares/vue-components",
+  "author": "Peter Goes <petergoes@gmail.com>",
+  "homepage": "https://github.com/openearth/delta-vue-components#readme",
+  "license": "ISC",
+  "main": "lib/demo-app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openearth/delta-vue-components.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/openearth/delta-vue-components/issues"
+  },
+  "dependencies": {
+    "@deltares/vue-components": "^0.0.0"
+  }
+}
