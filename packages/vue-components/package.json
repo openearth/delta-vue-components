@@ -7,8 +7,7 @@
   "license": "ISC",
   "main": "lib/vue-components.js",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
@@ -25,5 +24,8 @@
   },
   "bugs": {
     "url": "https://github.com/openearth/delta-vue-components/issues"
+  },
+  "dependencies": {
+    "@voorhoede/deltares-design-tokens": "1.1.0"
   }
 }

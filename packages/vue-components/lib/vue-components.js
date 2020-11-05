@@ -1,7 +1,9 @@
-'use strict';
+import DeltaVuetifyThemes from './themes/delta-vuetify-themes';
+import MapLayerControls from './components/MapLayerControls';
+import LayerListControls from './components/LayerListControls';
 
-module.exports = vueComponents;
-
-function vueComponents() {
-    // TODO
-}
+export {
+  LayerListControls,
+  MapLayerControls,
+  DeltaVuetifyThemes,
+};
