@@ -1,7 +1,5 @@
 import moveInArray from "../../utils/move-in-array";
 
-const isLayerGroup = item => Boolean(item.children)
-
 function walkGroup(parentIds, oldIndex, newIndex) {
 
   /** @param {LayerGroup} group */
