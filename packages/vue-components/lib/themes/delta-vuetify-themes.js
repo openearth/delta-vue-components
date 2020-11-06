@@ -1,4 +1,6 @@
-import { light, dark } from '@voorhoede/deltares-design-tokens';
+import tokens from '@deltares/design-tokens';
+
+const { light, dark } = tokens
 
 export default {
   light: {

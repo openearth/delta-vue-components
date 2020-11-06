@@ -1,11 +1,11 @@
 {
-  "name": "@deltares/vue-components",
+  "name": "@deltares/design-tokens",
   "version": "0.0.0",
-  "description": "Deltares specific Vue components",
+  "description": "Designtokens for Deltares components",
   "author": "Peter Goes <petergoes@gmail.com>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
   "license": "ISC",
-  "main": "lib/vue-components.js",
+  "main": "lib/design-tokens.js",
   "directories": {
     "lib": "lib"
   },
@@ -20,20 +20,12 @@
     "url": "git+https://github.com/openearth/delta-vue-components.git"
   },
   "scripts": {
-    "test": "npm run test:unit",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/openearth/delta-vue-components/issues"
   },
-  "dependencies": {
-    "@deltares/design-tokens": "^0.0.0"
-  },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "4.4.4",
-    "@vue/cli-plugin-eslint": "4.4.4",
-    "@vue/cli-plugin-unit-jest": "4.4.4",
-    "@vue/cli-service": "4.4.4",
-    "@vue/test-utils": "1.1.1"
+    "theo": "^8.1.4"
   }
 }
