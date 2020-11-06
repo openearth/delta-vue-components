@@ -8,7 +8,7 @@
   "scripts": {
     "start": "npm run start:demo-app",
     "start:demo-app": "lerna run start --stream --scope=demo-app",
-    "build:demo-app": "lerna run build --stream --scope=demo-app",
+    "build": "lerna run build --stream --scope=demo-app",
     "lint": "lerna run lint --ignore demo-app",
     "test": "lerna run test --ignore demo-app",
     "install": "npm run hoist",
