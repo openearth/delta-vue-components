@@ -27,13 +27,13 @@
     "url": "https://github.com/openearth/delta-vue-components/issues"
   },
   "dependencies": {
-    "@voorhoede/deltares-design-tokens": "1.1.0",
-    "@vue/test-utils": "1.1.1"
+    "@voorhoede/deltares-design-tokens": "1.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.4",
     "@vue/cli-plugin-eslint": "4.4.4",
     "@vue/cli-plugin-unit-jest": "4.4.4",
-    "@vue/cli-service": "4.4.4"
+    "@vue/cli-service": "4.4.4",
+    "@vue/test-utils": "1.1.1"
   }
 }
