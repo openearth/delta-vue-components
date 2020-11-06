@@ -2,6 +2,9 @@
 node_modules
 /dist
 
+# Ignore package specific package-locks so Lerna can hoist packages
+packages/**/package-lock.json
+
 # local env files
 .env.local
 .env.*.local
