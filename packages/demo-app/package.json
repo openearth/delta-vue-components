@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@deltares/design-tokens": "^0.0.0",
-    "@deltares/vue-components": "^0.0.0",
+    "@deltares/design-tokens": "^0.1.0",
+    "@deltares/vue-components": "^0.1.0",
     "@vue/composition-api": "1.0.0-beta.18",
     "core-js": "^3.6.5",
     "mapbox-gl": "^1.11.1",
