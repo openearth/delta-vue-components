@@ -1,5 +1,6 @@
 - [Delta Vue Components](#delta-vue-components)
   - [`@deltares/vue-components`](#deltaresvue-components)
+  - [`@deltares/design-tokens`](#deltaresdesign-tokens)
   - [`demo-app`](#demo-app)
   - [Building components in `@deltares/vue-components`](#building-components-in-deltaresvue-components)
   - [Adding dependencies to packages](#adding-dependencies-to-packages)
@@ -14,6 +15,11 @@ This is the monorepo for Deltares it's Vue components. We maintain it with
 This package contains the reusable Vue components to be used in your Deltares 
 projects. For its features and how to use it, 
 [look here](packages/vue-components/README.md).
+
+## `@deltares/design-tokens`
+
+This package contains the design tokens for the Deltares projects.
+For more info [look here](./packages/design-tokens/README.md)
 
 ## `demo-app`
 
