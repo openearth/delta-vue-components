@@ -1,6 +1,6 @@
 {
   "name": "@deltares/vue-components",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Deltares specific Vue components",
   "author": "Peter Goes <petergoes@gmail.com>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/openearth/delta-vue-components/issues"
   },
   "dependencies": {
-    "@deltares/design-tokens": "^0.1.1"
+    "@deltares/design-tokens": "^0.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.4",
