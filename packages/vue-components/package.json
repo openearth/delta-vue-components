@@ -1,0 +1,39 @@
+{
+  "name": "@deltares/vue-components",
+  "version": "0.0.0",
+  "description": "Deltares specific Vue components",
+  "author": "Peter Goes <petergoes@gmail.com>",
+  "homepage": "https://github.com/openearth/delta-vue-components#readme",
+  "license": "ISC",
+  "main": "lib/vue-components.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openearth/delta-vue-components.git"
+  },
+  "scripts": {
+    "test": "npm run test:unit",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "bugs": {
+    "url": "https://github.com/openearth/delta-vue-components/issues"
+  },
+  "dependencies": {
+    "@voorhoede/deltares-design-tokens": "1.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.4.4",
+    "@vue/cli-plugin-eslint": "4.4.4",
+    "@vue/cli-plugin-unit-jest": "4.4.4",
+    "@vue/cli-service": "4.4.4",
+    "@vue/test-utils": "1.1.1"
+  }
+}
