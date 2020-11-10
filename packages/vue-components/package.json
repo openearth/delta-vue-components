@@ -35,5 +35,6 @@
     "@vue/cli-plugin-unit-jest": "4.4.4",
     "@vue/cli-service": "4.4.4",
     "@vue/test-utils": "1.1.1"
-  }
+  },
+  "gitHead": "5107c7d98c1b974cb2c6d8f11e4ff7508fc33882"
 }
