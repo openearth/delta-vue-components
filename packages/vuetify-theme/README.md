@@ -5,7 +5,7 @@ The Deltares theme for Vuetify.
 ## Install
 
 ```
-npm install @deltares/vuetify-theme
+$ npm install @deltares/vuetify-theme
 ```
 
 ## Usage
