@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
-import { DeltaVuetifyThemes as themes } from '@deltares/vue-components';
+import themes from '@deltares/vuetify-theme'
 
 Vue.use(Vuetify);
 

@@ -26,9 +26,6 @@
   "bugs": {
     "url": "https://github.com/openearth/delta-vue-components/issues"
   },
-  "dependencies": {
-    "@deltares/design-tokens": "^0.1.2"
-  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.4",
     "@vue/cli-plugin-eslint": "4.4.4",
