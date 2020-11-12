@@ -27,6 +27,5 @@
   },
   "devDependencies": {
     "theo": "^8.1.4"
-  },
-  "gitHead": "05c1a40d41256798e772bc7f9ffe3ffc9c21dffc"
+  }
 }
