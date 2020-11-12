@@ -1,6 +1,6 @@
 {
   "name": "@deltares/design-tokens",
-  "version": "0.1.2",
+  "version": "0.2.0-alpha.0",
   "description": "Designtokens for Deltares components",
   "author": "Peter Goes <petergoes@gmail.com>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
