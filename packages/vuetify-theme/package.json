@@ -1,6 +1,6 @@
 {
   "name": "@deltares/vuetify-theme",
-  "version": "0.2.0-alpha.0",
+  "version": "0.2.0",
   "description": "The vuetify theme for Deltares",
   "author": "Peter Goes <petergoes@gmail.com>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
