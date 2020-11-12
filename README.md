@@ -1,6 +1,7 @@
 - [Delta Vue Components](#delta-vue-components)
   - [`@deltares/vue-components`](#deltaresvue-components)
   - [`@deltares/design-tokens`](#deltaresdesign-tokens)
+  - [`@deltares/vuetify-theme`](#deltaresvuetify-theme)
   - [`demo-app`](#demo-app)
   - [Building components in `@deltares/vue-components`](#building-components-in-deltaresvue-components)
   - [Adding dependencies to packages](#adding-dependencies-to-packages)
@@ -18,8 +19,16 @@ projects. For its features and how to use it,
 
 ## `@deltares/design-tokens`
 
-This package contains the design tokens for the Deltares projects.
+This package contains the raw design tokens for the Deltares projects.
+⚠️ You probably don't need to include this as a dependency in your projects. If 
+you want the `@deltares/vue-components` to have the Deltares theme, look at the
+`@deltares/vuetify-theme` package.
 For more info [look here](./packages/design-tokens/README.md)
+
+## `@deltares/vuetify-theme`
+
+This package contains the Vuetify theme for Deltares projects.
+For more info [look here](./packages/vuetify-theme/README.md)
 
 ## `demo-app`
 

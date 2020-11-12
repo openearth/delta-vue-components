@@ -1,0 +1,25 @@
+{
+  "name": "@deltares/vuetify-theme",
+  "version": "0.1.2",
+  "description": "The vuetify theme for Deltares",
+  "author": "Peter Goes <petergoes@gmail.com>",
+  "homepage": "https://github.com/openearth/delta-vue-components#readme",
+  "license": "ISC",
+  "main": "lib/vuetify-theme.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openearth/delta-vue-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openearth/delta-vue-components/issues"
+  }
+}
