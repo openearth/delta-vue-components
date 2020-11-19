@@ -21,5 +21,8 @@
   },
   "bugs": {
     "url": "https://github.com/openearth/delta-vue-components/issues"
+  },
+  "dependencies": {
+    "@deltares/design-tokens": "^0.2.0-alpha.0"
   }
 }
