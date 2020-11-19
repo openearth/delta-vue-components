@@ -32,5 +32,8 @@
     "@vue/cli-plugin-unit-jest": "4.4.4",
     "@vue/cli-service": "4.4.4",
     "@vue/test-utils": "1.1.1"
+  },
+  "peerDependencies": {
+    "vue2mapbox-gl": "^0.12.5"
   }
 }
