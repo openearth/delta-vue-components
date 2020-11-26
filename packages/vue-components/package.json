@@ -35,5 +35,8 @@
   },
   "peerDependencies": {
     "vue2mapbox-gl": "^0.12.5"
+  },
+  "dependencies": {
+    "query-string": "6.13.7"
   }
 }

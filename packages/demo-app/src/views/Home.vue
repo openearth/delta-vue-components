@@ -1,10 +1,14 @@
 <template>
   <app-sidebar>
-    <layer-list-controls :layers="layers" />
+    <layer-list-controls
+      :layers="layers"
+      @active-layers-change="onActiveLayerChange"
+    />
   </app-sidebar>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { AppSidebar, LayerListControls } from '@deltares/vue-components';
 
 export default {
@@ -34,6 +38,12 @@ export default {
         ]
       }
     ]
-  })
+  }),
+  methods: {
+    ...mapMutations(['map/setLayers']),
+    onActiveLayerChange(event) {
+      this['map/setLayers'](event)
+    }
+  }
 };
 </script>

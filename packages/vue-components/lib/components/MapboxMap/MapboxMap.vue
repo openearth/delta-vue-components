@@ -1,15 +1,3 @@
-<template>
-  <div class="mapbox-map">
-    <v-mapbox
-      class="mapbox-map__map"
-      :access-token="accessToken"
-      :map-style="mapboxStyle"
-      :center="center"
-      :zoom="zoom"
-    />
-  </div>
-</template>
-
 <script>
 import Vue from 'vue';
 import Vue2MapboxGL from 'vue2mapbox-gl';
@@ -42,6 +30,19 @@ export default {
       default: MAPBOX_STYLE
     }
   },
+  render(h) {
+    return h('div', { class: 'mapbox-map' }, [
+      h('v-mapbox', {
+        class: 'mapbox-map__map',
+        props: {
+          accessToken: this.accessToken,
+          mapStyle: this.mapboxStyle,
+          center: this.center,
+          zoom: this.zoom
+        }
+      }, this.$slots.default)
+    ])
+  }
 };
 </script>
 

@@ -3,6 +3,7 @@ import AppShell from './components/AppShell'
 import AppSidebar from './components/AppSidebar'
 import LayerListControls from './components/LayerListControls';
 import MapboxMap from './components/MapboxMap';
+import MapboxWmsLayer from './components/MapboxWmsLayer';
 import MapLayerControls from './components/MapLayerControls';
 
 export {
@@ -11,5 +12,6 @@ export {
   AppSidebar,
   LayerListControls,
   MapboxMap,
+  MapboxWmsLayer,
   MapLayerControls,
 };

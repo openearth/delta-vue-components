@@ -6,20 +6,29 @@
     <mapbox-map
       slot="map"
       :access-token="accessToken"
-    />
+    >
+      <mapbox-wms-layer v-for="layer in layers" :key="layer.id" :layer="layer" />
+    </mapbox-map>
+
   </app-shell>
 </template>
 
 <script>
-import { AppShell, MapboxMap } from '@deltares/vue-components'
-
+import { mapState } from 'vuex'
+import { AppShell, MapboxMap, MapboxWmsLayer } from '@deltares/vue-components'
 export default {
   components: {
     AppShell,
     MapboxMap,
+    MapboxWmsLayer,
   },
   data: () => ({
-    accessToken: process.env.VUE_APP_MAPBOX_TOKEN
-  })
+    accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
+  }),
+  computed: {
+    ...mapState({
+      layers: ({ map }) => map.layers
+    })
+  }
 }
 </script>
