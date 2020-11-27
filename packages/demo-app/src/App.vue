@@ -16,6 +16,7 @@
 <script>
 import { mapState } from 'vuex'
 import { AppShell, MapboxMap, MapboxWmsLayer } from '@deltares/vue-components'
+
 export default {
   components: {
     AppShell,
@@ -28,7 +29,7 @@ export default {
   computed: {
     ...mapState({
       layers: ({ map }) => map.layers
-    })
+    }),
   }
 }
 </script>

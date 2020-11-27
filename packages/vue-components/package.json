@@ -34,9 +34,10 @@
     "@vue/test-utils": "1.1.1"
   },
   "peerDependencies": {
-    "vue2mapbox-gl": "^0.12.5"
+    "vue2mapbox-gl": "^0.13.0"
   },
   "dependencies": {
+    "@deltares/utilities": "^0.2.0",
     "query-string": "6.13.7"
   }
 }

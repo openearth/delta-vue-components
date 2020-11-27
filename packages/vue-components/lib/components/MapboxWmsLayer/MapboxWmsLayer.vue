@@ -1,9 +1,9 @@
 <template>
-  <v-mapbox-layer ref="layer" :options="options"/>
+  <v-mapbox-layer ref="layer" :options="options" v-bind="$attrs" />
 </template>
 
 <script>
-import buildWmsLayer from '../../utils/mapbox/build-wms-layer'
+import { buildWmsLayer } from '@deltares/utilities'
 
 export default {
   name: 'mapbox-wms-layer',

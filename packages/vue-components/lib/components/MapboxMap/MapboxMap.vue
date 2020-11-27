@@ -1,3 +1,17 @@
+<template>
+<div class="mapbox-map">
+  <v-mapbox
+    class="mapbox-map__map"
+    :accessToken="accessToken"
+    :mapStyle="mapboxStyle"
+    :center="center"
+    :zoom="zoom"
+  >
+    <slot></slot>
+  </v-mapbox>
+</div>
+</template>
+
 <script>
 import Vue from 'vue';
 import Vue2MapboxGL from 'vue2mapbox-gl';
@@ -13,7 +27,7 @@ const MAPBOX_STYLE = 'mapbox://styles/mapbox/light-v9';
 
 export default {
   props: {
-    accessToken: { 
+    accessToken: {
       type: String,
       required: true
     },
@@ -30,19 +44,6 @@ export default {
       default: MAPBOX_STYLE
     }
   },
-  render(h) {
-    return h('div', { class: 'mapbox-map' }, [
-      h('v-mapbox', {
-        class: 'mapbox-map__map',
-        props: {
-          accessToken: this.accessToken,
-          mapStyle: this.mapboxStyle,
-          center: this.center,
-          zoom: this.zoom
-        }
-      }, this.$slots.default)
-    ])
-  }
 };
 </script>
 

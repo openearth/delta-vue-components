@@ -3,6 +3,7 @@
     <layer-list-controls
       :layers="layers"
       @active-layers-change="onActiveLayerChange"
+      @layer-sorting-change="onLayerSortingChange"
     />
   </app-sidebar>
 </template>
@@ -43,7 +44,10 @@ export default {
     ...mapMutations(['map/setLayers']),
     onActiveLayerChange(event) {
       this['map/setLayers'](event)
-    }
+    },
+    onLayerSortingChange(sortedLayers) {
+      this.layers = sortedLayers;
+    },
   }
 };
 </script>
