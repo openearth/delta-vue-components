@@ -1,11 +1,11 @@
 {
-  "name": "@deltares/vuetify-theme",
+  "name": "@deltares/utilities",
   "version": "0.2.0",
-  "description": "The vuetify theme for Deltares",
-  "author": "Peter Goes <petergoes@gmail.com>",
+  "description": "Utility functions for Deltares (map) applications",
+  "author": "Bob Bol <bob@voorhoede.nl>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
   "license": "ISC",
-  "main": "lib/vuetify-theme.js",
+  "main": "lib",
   "directories": {
     "lib": "lib"
   },
@@ -19,10 +19,10 @@
     "type": "git",
     "url": "git+https://github.com/openearth/delta-vue-components.git"
   },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
   "bugs": {
     "url": "https://github.com/openearth/delta-vue-components/issues"
-  },
-  "dependencies": {
-    "@deltares/design-tokens": "^0.2.0-alpha.0"
   }
 }
