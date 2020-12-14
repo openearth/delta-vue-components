@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { watch, ref, toRefs, computed } from '@vue/composition-api'
+import { watch, ref, toRefs, computed, onMounted } from '@vue/composition-api'
 import addIndex from './add-index'
 import findInTree from './find-in-tree'
 import addParentIdToLayers from './add-parent-id-to-layers'
@@ -57,6 +57,10 @@ export default {
     const { setSelectedIds, selectedIds } = useSelected()
     const { activeLegend, setActiveLegend } = useLegend(selectedIds)
     const { onSortingChange } = useSortable(layers, root, openItems)
+
+    onMounted(() => {
+      setSelectedIds([])
+    })
 
     const sortedSelectedLayers = computed(() => {
       const withIndex = addIndex(layers.value)
