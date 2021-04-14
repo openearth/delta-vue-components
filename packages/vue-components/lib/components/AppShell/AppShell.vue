@@ -6,15 +6,16 @@
       <template slot="left">
         <slot name="header-left" />
       </template>
-      
+
       <template slot="right">
         <slot name="header-right" />
       </template>
-    
+
     </app-header>
 
     <v-main>
       <router-view />
+      <slot />
       <slot name="map" />
     </v-main>
   </v-app>
