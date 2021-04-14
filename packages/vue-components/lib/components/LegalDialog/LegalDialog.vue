@@ -30,7 +30,7 @@
             <v-btn
               color="primary"
               :disabled="!allAccepted"
-              @click="onStartClick"
+              @click="onAcceptClick"
             >
               {{ buttonText }}
             </v-btn>
@@ -42,6 +42,9 @@
 </template>
 
 <script>
+const storageKey = '__legal_accepted'
+const storageModes = ['session', 'local', 'none']
+
 export default {
   props: {
     title: {
@@ -59,24 +62,56 @@ export default {
     buttonText: {
       type: String,
       required: true
+    },
+    storage: {
+      type: String,
+      default: 'session',
+      validator(value) {
+        const valid = storageModes.includes(value)
+
+        if (!valid) {
+          console.warn(`LegalDialog: 'mode' should be one of the following values: ${storageModes.join(', ')}`)
+        }
+
+        return valid
+      }
     }
   },
   data: () => ({
-    show: true,
+    show: false,
     accepted: []
   }),
   computed: {
     allAccepted() {
       return this.accepted.every(val => val);
     },
+    storageMethod() {
+      if (this.storage === 'none') {
+        return false
+      } else if (storageModes.includes(this.storage)) {
+        return `${this.storage}Storage`
+      }
+
+      return null
+    }
   },
   mounted() {
     this.accepted = this.checkboxes.map(() => false)
+
+    if (this.storageMethod) {
+      this.show = !JSON.parse(window[this.storageMethod].getItem(storageKey))
+    } else {
+      this.show = true
+    }
   },
   methods: {
-    onStartClick() {
+    onAcceptClick() {
       this.show = false
       this.$emit('accepted')
+
+      if (this.storageMethod) {
+        window[this.storageMethod].setItem(storageKey, true)
+      }
     },
   },
 };

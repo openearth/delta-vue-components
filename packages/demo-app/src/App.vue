@@ -6,6 +6,7 @@
     <legal-dialog
       title="Legal"
       buttonText="Accept"
+      storage="none"
       :body="legalText"
       :checkboxes="['I accept the above statement', 'I agree to the use of cookies']"
     />
