@@ -1,6 +1,7 @@
 <template>
 <div class="mapbox-map">
   <v-mapbox
+    ref="vmapbox"
     class="mapbox-map__map"
     :accessToken="accessToken"
     :mapStyle="mapboxStyle"
@@ -44,6 +45,29 @@ export default {
       default: MAPBOX_STYLE
     }
   },
+  mounted() {
+    // Map events: https://docs.mapbox.com/mapbox-gl-js/api/map/#map-events
+    this.$refs.vmapbox.map.on('resize', event => this.$emit('resize', event))
+    this.$refs.vmapbox.map.on('remove', event => this.$emit('remove', event))
+
+    // Lifecycle events: https://docs.mapbox.com/mapbox-gl-js/api/map/#events-lifecycle
+    this.$refs.vmapbox.map.on('load', event => this.$emit('load', event))
+    this.$refs.vmapbox.map.on('render', event => this.$emit('render', event))
+    this.$refs.vmapbox.map.on('idle', event => this.$emit('idle', event))
+    this.$refs.vmapbox.map.on('error', event => this.$emit('error', event))
+    this.$refs.vmapbox.map.on('webglcontextlost', event => this.$emit('webglcontextlost', event))
+    this.$refs.vmapbox.map.on('webglcontextrestored', event => this.$emit('webglcontextrestored', event))
+
+
+    // Data loading events: https://docs.mapbox.com/mapbox-gl-js/api/map/#events-data-loading
+    this.$refs.vmapbox.map.on('data', event => this.$emit('data', event))
+    this.$refs.vmapbox.map.on('styledata', event => this.$emit('styledata', event))
+    this.$refs.vmapbox.map.on('sourcedata', event => this.$emit('sourcedata', event))
+    this.$refs.vmapbox.map.on('dataloading', event => this.$emit('dataloading', event))
+    this.$refs.vmapbox.map.on('styledataloading', event => this.$emit('styledataloading', event))
+    this.$refs.vmapbox.map.on('sourcedataloading', event => this.$emit('sourcedataloading', event))
+    this.$refs.vmapbox.map.on('styleimagemissing', event => this.$emit('styleimagemissing', event))
+  }
 };
 </script>
 
