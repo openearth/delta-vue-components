@@ -1,6 +1,6 @@
 {
   "name": "@deltares/utilities",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Utility functions for Deltares (map) applications",
   "author": "Bob Bol <bob@voorhoede.nl>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",

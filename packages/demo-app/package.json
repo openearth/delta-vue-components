@@ -1,11 +1,11 @@
 {
   "name": "demo-app",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "dependencies": {
-    "@deltares/utilities": "^0.3.0",
-    "@deltares/vue-components": "^0.3.0",
-    "@deltares/vuetify-theme": "^0.3.0",
+    "@deltares/utilities": "^0.4.0",
+    "@deltares/vue-components": "^0.4.0",
+    "@deltares/vuetify-theme": "^0.4.0",
     "@vue/composition-api": "1.0.0-beta.18",
     "core-js": "^3.6.5",
     "mapbox-gl": "^1.11.1",

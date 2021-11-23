@@ -1,6 +1,6 @@
 {
   "name": "@deltares/vuetify-theme",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "The vuetify theme for Deltares",
   "author": "Peter Goes <petergoes@gmail.com>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
@@ -23,6 +23,6 @@
     "url": "https://github.com/openearth/delta-vue-components/issues"
   },
   "dependencies": {
-    "@deltares/design-tokens": "^0.3.0"
+    "@deltares/design-tokens": "^0.4.0"
   }
 }
