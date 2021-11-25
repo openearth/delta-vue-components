@@ -1,6 +1,6 @@
 {
   "name": "@deltares/vue-components",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Deltares specific Vue components",
   "author": "Peter Goes <petergoes@gmail.com>",
   "homepage": "https://github.com/openearth/delta-vue-components#readme",
@@ -37,7 +37,7 @@
     "vue2mapbox-gl": "^0.13.0"
   },
   "dependencies": {
-    "@deltares/utilities": "^0.4.0",
+    "@deltares/utilities": "^0.5.0",
     "query-string": "6.13.7"
   }
 }
