@@ -43,10 +43,24 @@ export default {
     mapboxStyle: {
       type: String,
       default: MAPBOX_STYLE
+    },
+    padding: {
+      type: Object,
+      default: () => ({ left: 0, right: 0, top: 0, bottom: 0 }),
+      validator: value => {
+        return Object.prototype.hasOwnProperty.call(value, 'top') || 
+               Object.prototype.hasOwnProperty.call(value, 'right') || 
+               Object.prototype.hasOwnProperty.call(value, 'bottom') || 
+               Object.prototype.hasOwnProperty.call(value, 'left')
+      }
+    },
+  },
     }
   },
   mounted() {
     const map = this.$refs.vmapbox.map
+    map.setPadding(this.padding)
+
     // Map events: https://docs.mapbox.com/mapbox-gl-js/api/map/#map-events
     map.on('resize', event => this.$emit('resize', event))
     map.on('remove', event => this.$emit('remove', event))
