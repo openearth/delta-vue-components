@@ -46,27 +46,28 @@ export default {
     }
   },
   mounted() {
+    const map = this.$refs.vmapbox.map
     // Map events: https://docs.mapbox.com/mapbox-gl-js/api/map/#map-events
-    this.$refs.vmapbox.map.on('resize', event => this.$emit('resize', event))
-    this.$refs.vmapbox.map.on('remove', event => this.$emit('remove', event))
+    map.on('resize', event => this.$emit('resize', event))
+    map.on('remove', event => this.$emit('remove', event))
 
     // Lifecycle events: https://docs.mapbox.com/mapbox-gl-js/api/map/#events-lifecycle
-    this.$refs.vmapbox.map.on('load', event => this.$emit('load', event))
-    this.$refs.vmapbox.map.on('render', event => this.$emit('render', event))
-    this.$refs.vmapbox.map.on('idle', event => this.$emit('idle', event))
-    this.$refs.vmapbox.map.on('error', event => this.$emit('error', event))
-    this.$refs.vmapbox.map.on('webglcontextlost', event => this.$emit('webglcontextlost', event))
-    this.$refs.vmapbox.map.on('webglcontextrestored', event => this.$emit('webglcontextrestored', event))
+    map.on('load', event => this.$emit('load', event))
+    map.on('render', event => this.$emit('render', event))
+    map.on('idle', event => this.$emit('idle', event))
+    map.on('error', event => this.$emit('error', event))
+    map.on('webglcontextlost', event => this.$emit('webglcontextlost', event))
+    map.on('webglcontextrestored', event => this.$emit('webglcontextrestored', event))
 
 
     // Data loading events: https://docs.mapbox.com/mapbox-gl-js/api/map/#events-data-loading
-    this.$refs.vmapbox.map.on('data', event => this.$emit('data', event))
-    this.$refs.vmapbox.map.on('styledata', event => this.$emit('styledata', event))
-    this.$refs.vmapbox.map.on('sourcedata', event => this.$emit('sourcedata', event))
-    this.$refs.vmapbox.map.on('dataloading', event => this.$emit('dataloading', event))
-    this.$refs.vmapbox.map.on('styledataloading', event => this.$emit('styledataloading', event))
-    this.$refs.vmapbox.map.on('sourcedataloading', event => this.$emit('sourcedataloading', event))
-    this.$refs.vmapbox.map.on('styleimagemissing', event => this.$emit('styleimagemissing', event))
+    map.on('data', event => this.$emit('data', event))
+    map.on('styledata', event => this.$emit('styledata', event))
+    map.on('sourcedata', event => this.$emit('sourcedata', event))
+    map.on('dataloading', event => this.$emit('dataloading', event))
+    map.on('styledataloading', event => this.$emit('styledataloading', event))
+    map.on('sourcedataloading', event => this.$emit('sourcedataloading', event))
+    map.on('styleimagemissing', event => this.$emit('styleimagemissing', event))
   }
 };
 </script>
