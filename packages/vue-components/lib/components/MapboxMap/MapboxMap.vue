@@ -55,7 +55,13 @@ export default {
       }
     },
   },
-    }
+  watch: {
+    padding: {
+      handler: function(newValue) {
+        this.$refs.vmapbox.map.setPadding(newValue)
+      },
+      deep: true,
+    },
   },
   mounted() {
     const map = this.$refs.vmapbox.map
