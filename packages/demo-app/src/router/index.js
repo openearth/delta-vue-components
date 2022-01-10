@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
+import Time from '../views/Time.vue';
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,11 @@ const routes = [
     name: 'About',
     component: About
   },
+  {
+    path: '/Time',
+    name: 'Time',
+    component: Time,
+  }
 ];
 
 const router = new VueRouter({

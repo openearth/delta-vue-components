@@ -1,19 +1,21 @@
 <template>
   <app-shell header-title="DeltaVue Components Library">
     <router-link slot="header-right" to="/"><v-btn text>Home</v-btn></router-link>
+    <router-link slot="header-right" to="/time"><v-btn text>Time</v-btn></router-link>
     <router-link slot="header-right" to="/about"><v-btn text>About</v-btn></router-link>
 
-    <!-- <legal-dialog
+    <legal-dialog
       title="Legal"
       buttonText="Accept"
-      storage="none"
+      storage="local"
       :body="legalText"
       :checkboxes="['I accept the above statement', 'I agree to the use of cookies']"
-    /> -->
+    />
 
     <mapbox-map
       slot="map"
       :access-token="accessToken"
+      @load="onMapLoad"
     >
       <mapbox-wms-layer
         v-for="layer in wmsLayers"
@@ -52,6 +54,12 @@ export default {
       wmsLayers: ({ map }) => map.wmsLayers,
       rasterLayers: ({ map }) => map.rasterLayers,
     }),
+  },
+
+  methods: {
+    onMapLoad({ target }) {
+      this.$root.mbMap = target;
+    },
   },
 }
 </script>

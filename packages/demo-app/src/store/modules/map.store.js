@@ -18,7 +18,7 @@ export default {
           tileSize: 512,
           durationSec: 2.2,
           dateBegin: '2000-01-01',
-          dateEnd: '2022-01-01',
+          dateEnd: '2020-01-01',
           maxzoom: 14,
           minzoom: 9,
           scheme: 'xyz',
