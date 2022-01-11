@@ -9,7 +9,30 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 import { TimeSlider } from '@deltares/vue-components';
+
+const TILED_VIDEO_EXAMPLE_LAYER = {
+  id: 'satellite-natural-video',
+  type: 'raster',
+  layout: {
+    visibility: 'visible'
+  },
+  source: {
+    type: 'video-tiled',
+    tiles: [
+      'https://storage.googleapis.com/vegetatiemonitor/satellite-natural-video/{z}/{x}/{y}.webm'
+    ],
+    tileSize: 512,
+    durationSec: 2.2,
+    dateBegin: null,
+    dateEnd: null,
+    maxzoom: 14,
+    minzoom: 9,
+    scheme: 'xyz',
+    geometry: []
+  }
+};
 
 export default {
   name: 'Time',
@@ -19,45 +42,40 @@ export default {
   },
 
   data: () => ({
-    layers: [
-      {
-        id: 'satellite-natural-video',
-        type: 'raster',
-        layout: {
-          visibility: 'visible'
-        },
-        source: {
-          type: 'video-tiled',
-          tiles: [
-            'https://storage.googleapis.com/vegetatiemonitor/satellite-natural-video/{z}/{x}/{y}.webm'
-          ],
-          tileSize: 512,
-          durationSec: 2.2,
-          dateBegin: '2000-01-01',
-          dateEnd: '2020-01-01',
-          maxzoom: 14,
-          minzoom: 9,
-          scheme: 'xyz',
-          geometry: []
-        }
-      }
-    ],
     timings: [],
   }),
 
+  computed: {
+    ...mapState({
+      rasterLayers: ({ map }) => map.rasterLayers,
+    }),
+  },
+
   methods: {
+    ...mapMutations(['map/setRasterLayers']),
+
     onTimingSelection(selection) {
-      const beginTotal = new Date(this.layers[0].source.dateBegin);
-      const endTotal = new Date(this.layers[0].source.dateEnd);
+      const beginTotal = new Date(this.rasterLayers[0].source.dateBegin);
+      const endTotal = new Date(this.rasterLayers[0].source.dateEnd);
       const totalDuration = endTotal - beginTotal;
       const beginSelection = new Date(selection.startValue);
       const millisecondsToMiddle = (new Date(selection.endValue) - beginSelection) / 2;
       const passedDuration = beginSelection - beginTotal + millisecondsToMiddle;
       const playheadFraction = passedDuration / totalDuration;
-      const playheadTime = this.layers[0].source.durationSec * playheadFraction;
+      const playheadTime = this.rasterLayers[0].source.durationSec * playheadFraction;
 
-      const { player } = this.$root.mbMap.getSource(this.layers[0].id);
+      const { player } = this.$root.mbMap.getSource(this.rasterLayers[0].id);
       player.setCurrentTime(playheadTime);
+    },
+
+    buildLayer() {
+      const numTimings = this.timings.length;
+      if(!numTimings) return;
+      const dateBegin = this.timings[0].startValue;
+      const dateEnd = this.timings[numTimings - 1].endValue;
+      const source = { ...TILED_VIDEO_EXAMPLE_LAYER.source, dateBegin, dateEnd };
+
+      this['map/setRasterLayers']([ { ...TILED_VIDEO_EXAMPLE_LAYER, source } ])
     },
 
     fetchDates() {
@@ -109,7 +127,7 @@ export default {
             endValue: dateEnd,
             endLabel: dateEnd.split('-')[0],
           }));
-          console.log(this.timings);
+          this.buildLayer();
         })
         .catch(err => {
           console.error('ERROR FETCHING DATES', err);
