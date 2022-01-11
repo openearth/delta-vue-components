@@ -1,9 +1,9 @@
 <template>
-  <div
-    class="time-page">
+  <div class="time-page">
     <time-slider
       :timings="timings"
       @input="onTimingSelection"
+      mode="simple-select"
     />
   </div>
 </template>
@@ -75,7 +75,14 @@ export default {
       const dateEnd = this.timings[numTimings - 1].endValue;
       const source = { ...TILED_VIDEO_EXAMPLE_LAYER.source, dateBegin, dateEnd };
 
-      this['map/setRasterLayers']([ { ...TILED_VIDEO_EXAMPLE_LAYER, source } ])
+      this['map/setRasterLayers']([ { ...TILED_VIDEO_EXAMPLE_LAYER, source } ]);
+
+      setTimeout(() => {
+        this.$root.mbMap.flyTo({
+          center: [ 5.2, 51.8 ],
+          zoom: 9,
+        });
+      }, 1000);
     },
 
     fetchDates() {
