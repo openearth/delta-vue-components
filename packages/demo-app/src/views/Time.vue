@@ -1,9 +1,12 @@
 <template>
-  <div class="time-page">
+  <div
+    class="time-page"
+    :class="{ 'time-page--stretch': mode === 'simple-slider' }"
+  >
     <time-slider
       :timings="timings"
       @input="onTimingSelection"
-      mode="simple-select"
+      :mode="mode"
     />
   </div>
 </template>
@@ -43,6 +46,7 @@ export default {
 
   data: () => ({
     timings: [],
+    mode: 'simple-slider',
   }),
 
   computed: {
@@ -156,5 +160,9 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+
+    &--stretch {
+      width: 98vw;
+    }
   }
 </style>

@@ -4,6 +4,7 @@
     elevation="1"
     rounded
   >
+    <!-- <pre>{{ years }}</pre> -->
     <div
       v-if="mode === 'simple-select'"
       class="d-flex align-center"
@@ -36,6 +37,18 @@
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
     </div>
+
+    <v-slider
+      v-if="mode === 'simple-slider' && timings.length"
+      class="px-2"
+      v-model="simpleSliderValue"
+      :tick-labels="sliderTicks"
+      :max="sliderTicks.length ? sliderTicks.length - 1 : 0"
+      :step="1"
+      ticks="always"
+      tick-size="5"
+    />
+
   </v-sheet>
 </template>
 
@@ -70,6 +83,19 @@ export default {
     currentIndex() {
       return this.timings.findIndex(timing =>
         timing[INTERFACE.VALUE] === this.internalValue[INTERFACE.VALUE]);
+    },
+
+    simpleSliderValue: {
+      get() {
+        return this.currentIndex;
+      },
+      set(index) {
+        this.onInput(this.timings[index]);
+      }
+    },
+
+    sliderTicks() {
+      return this.timings.map(timing => timing[INTERFACE.TEXT]);
     },
   },
 
