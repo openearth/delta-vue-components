@@ -1,10 +1,10 @@
 <template>
   <v-sheet
+    v-if="timings.length"
     class="time-slider px-2 py-4"
     elevation="1"
     rounded
   >
-    <!-- <pre>{{ years }}</pre> -->
     <div
       v-if="mode === 'simple-select'"
       class="d-flex align-center"
@@ -39,7 +39,7 @@
     </div>
 
     <v-slider
-      v-if="mode === 'simple-slider' && timings.length"
+      v-if="mode === 'simple-slider'"
       class="px-2"
       v-model="simpleSliderValue"
       :tick-labels="sliderTicks"
@@ -49,7 +49,20 @@
       tick-size="5"
     />
 
-    <!-- <div v-if="" -->
+    <div
+      v-if="mode === 'timeline'"
+      class="px-2"
+    >
+      <div class="timeline_bar">
+        <button
+          v-for="(timing, index) in timings"
+          :key="index"
+          :class="timing[INTERFACE.END_VALUE] ? 'timeline_interval' : 'timeline_point'"
+          :style="inferTimingStyle(timing)"
+          @click="onInput(timing)"
+        ></button>
+      </div>
+    </div>
 
   </v-sheet>
 </template>
@@ -58,6 +71,7 @@
 const INTERFACE = {
   LABEL: 'label',
   VALUE: 'value',
+  END_VALUE: 'endValue',
 };
 
 export default {
@@ -98,6 +112,25 @@ export default {
     sliderTicks() {
       return this.timings.map(timing => timing[INTERFACE.LABEL]);
     },
+
+    timelineCompounds() {
+      const { timings } = this;
+      const lastTiming = timings[timings.length - 1];
+
+      const beginDate = timings[0][INTERFACE.VALUE];
+      const endDate = lastTiming[INTERFACE.END_VALUE] || lastTiming[INTERFACE.VALUE];
+      const totalDuration = endDate - beginDate;
+      const beginLabel = timings[0][INTERFACE.LABEL];
+      const endLabel = lastTiming[INTERFACE.LABEL];
+
+      return {
+        beginDate,
+        endDate,
+        totalDuration,
+        beginLabel,
+        endLabel,
+      };
+    },
   },
 
   methods: {
@@ -115,6 +148,20 @@ export default {
         this.internalValue = { ...this.timings[0] };
       }
     },
+
+    inferTimingStyle(timing) {
+      const durationFromStart = timing[INTERFACE.VALUE] - this.timelineCompounds.beginDate;
+      const percentage = Math.round(durationFromStart / this.timelineCompounds.totalDuration * 100);
+      const returnObj = {
+        left: percentage + '%',
+      }
+      if(timing[INTERFACE.END_VALUE]) {
+        const intervalDuration = timing[INTERFACE.END_VALUE] - timing[INTERFACE.VALUE];
+        const percentage = Math.round(intervalDuration / this.timelineCompounds.totalDuration * 100);
+        returnObj.width = percentage + '%';
+      }
+      return returnObj;
+    },
   },
 
   watch: {
@@ -127,3 +174,64 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.timeline {
+  &_bar {
+    position: relative;
+    border: thin solid #dbdbdb;
+    background-color: #f2f2f2;
+    height: 20px;
+  }
+
+  &_point,
+  &_interval {
+    position: absolute;
+    height: 100%;
+
+    &::after {
+      position: absolute;
+      content: '';
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      transition: 150ms ease-out;
+    }
+
+    &:hover::after {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  &_point {
+    top: -3px;
+    width: 10px;
+    height: calc(100% + 6px);
+    transform: translateX(-5px);
+    z-index: 2;
+
+    &::after {
+      border: 1px solid blue;
+      background-color: rgba(blue, 0.7);
+    }
+
+    &:hover::after {
+      border-radius: 2px;
+      background-color: blue;
+    }
+  }
+
+  &_interval {
+    z-index: 1;
+
+    &::after {
+      border: 1px solid blueviolet;
+      background-color: rgba(blueviolet, 0.3);
+    }
+  }
+}
+</style>

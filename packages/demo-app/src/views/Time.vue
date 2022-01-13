@@ -1,7 +1,7 @@
 <template>
   <div
     class="time-page"
-    :class="{ 'time-page--stretch': mode === 'simple-slider' }"
+    :class="{ 'time-page--stretch': mode !== 'simple-select' }"
   >
     <time-slider
       :timings="timings"
@@ -14,6 +14,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import { TimeSlider } from '@deltares/vue-components';
+
+const randomBool = () => Math.random() < 0.5;
 
 const TILED_VIDEO_EXAMPLE_LAYER = {
   id: 'satellite-natural-video',
@@ -46,7 +48,7 @@ export default {
 
   data: () => ({
     timings: [],
-    mode: 'simple-select',
+    mode: 'timeline',
   }),
 
   computed: {
@@ -59,12 +61,17 @@ export default {
     ...mapMutations(['map/setRasterLayers']),
 
     onTimingSelection(selection) {
+      console.log(selection);
       const beginTotal = new Date(this.rasterLayers[0].source.dateBegin);
       const endTotal = new Date(this.rasterLayers[0].source.dateEnd);
       const totalDuration = endTotal - beginTotal;
       const beginSelection = new Date(selection.value);
-      const millisecondsToMiddle = (new Date(selection.endValue) - beginSelection) / 2;
-      const passedDuration = beginSelection - beginTotal + millisecondsToMiddle;
+
+      // If we have an interval, we jump to the middle of that interval,
+      // otherwise we just jump to the point
+      const selectionMiddle = selection.endValue ? (new Date(selection.endValue) - beginSelection) / 2 : 0;
+
+      const passedDuration = beginSelection - beginTotal + selectionMiddle;
       const playheadFraction = passedDuration / totalDuration;
       const playheadTime = this.rasterLayers[0].source.durationSec * playheadFraction;
 
@@ -133,9 +140,10 @@ export default {
         .then(res => res.json())
         .then(dates => {
           this.timings = dates.map(({ dateStart, dateEnd }) => ({
-            value: dateStart,
+            value: new Date(dateStart),
             label: dateStart.split('-')[0],
-            endValue: dateEnd,
+            // randomly create a point or an interval
+            endValue: randomBool() ? new Date(dateEnd) : undefined,
           }));
           this.buildLayer();
         })
