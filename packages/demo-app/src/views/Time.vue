@@ -46,7 +46,7 @@ export default {
 
   data: () => ({
     timings: [],
-    mode: 'simple-slider',
+    mode: 'simple-select',
   }),
 
   computed: {
@@ -62,7 +62,7 @@ export default {
       const beginTotal = new Date(this.rasterLayers[0].source.dateBegin);
       const endTotal = new Date(this.rasterLayers[0].source.dateEnd);
       const totalDuration = endTotal - beginTotal;
-      const beginSelection = new Date(selection.startValue);
+      const beginSelection = new Date(selection.value);
       const millisecondsToMiddle = (new Date(selection.endValue) - beginSelection) / 2;
       const passedDuration = beginSelection - beginTotal + millisecondsToMiddle;
       const playheadFraction = passedDuration / totalDuration;
@@ -75,7 +75,7 @@ export default {
     buildLayer() {
       const numTimings = this.timings.length;
       if(!numTimings) return;
-      const dateBegin = this.timings[0].startValue;
+      const dateBegin = this.timings[0].value;
       const dateEnd = this.timings[numTimings - 1].endValue;
       const source = { ...TILED_VIDEO_EXAMPLE_LAYER.source, dateBegin, dateEnd };
 
@@ -133,10 +133,9 @@ export default {
         .then(res => res.json())
         .then(dates => {
           this.timings = dates.map(({ dateStart, dateEnd }) => ({
-            startValue: dateStart,
-            startLabel: dateStart.split('-')[0],
+            value: dateStart,
+            label: dateStart.split('-')[0],
             endValue: dateEnd,
-            endLabel: dateEnd.split('-')[0],
           }));
           this.buildLayer();
         })

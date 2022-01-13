@@ -22,7 +22,7 @@
           dense
           hide-details
           :items="timings"
-          :item-text="INTERFACE.TEXT"
+          :item-text="INTERFACE.LABEL"
           :item-value="INTERFACE.VALUE"
           return-object
           @input="onInput"
@@ -49,14 +49,15 @@
       tick-size="5"
     />
 
+    <!-- <div v-if="" -->
+
   </v-sheet>
 </template>
 
 <script>
-// @TODO :: Come up with a good interface for a Timing Object
 const INTERFACE = {
-  TEXT: 'startLabel',
-  VALUE: 'startValue',
+  LABEL: 'label',
+  VALUE: 'value',
 };
 
 export default {
@@ -95,7 +96,7 @@ export default {
     },
 
     sliderTicks() {
-      return this.timings.map(timing => timing[INTERFACE.TEXT]);
+      return this.timings.map(timing => timing[INTERFACE.LABEL]);
     },
   },
 

@@ -1,1 +1,1 @@
-export { default } from './TimeSlider.vue'
+export { default, createTiming } from './TimeSlider.vue'
