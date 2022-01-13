@@ -1,13 +1,21 @@
 <template>
-  <div
-    class="time-page"
-    :class="{ 'time-page--stretch': mode !== 'simple-select' }"
-  >
-    <time-slider
-      :timings="timings"
-      @input="onTimingSelection"
-      :mode="mode"
+  <div>
+    <v-select
+      class="modeselektor"
+      solo
+      :items="modes"
+      v-model="mode"
     />
+    <div
+      class="time-page"
+      :class="{ 'time-page--stretch': mode !== 'simple-select' }"
+    >
+      <time-slider
+        :timings="timings"
+        @input="onTimingSelection"
+        :mode="mode"
+      />
+    </div>
   </div>
 </template>
 
@@ -49,6 +57,11 @@ export default {
   data: () => ({
     timings: [],
     mode: 'timeline',
+    modes: [
+      'simple-select',
+      'simple-slider',
+      'timeline',
+    ],
   }),
 
   computed: {
@@ -171,5 +184,12 @@ export default {
     &--stretch {
       width: 98vw;
     }
+  }
+
+  .modeselektor {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
   }
 </style>
