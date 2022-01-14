@@ -53,14 +53,20 @@
       v-if="mode === 'timeline'"
       class="px-2"
     >
-      <div class="timeline_bar">
-        <button
+      <div class="timeline_bar"
+        @drop="onDrop"
+        @dragover.prevent
+        @dragenter.prevent
+      >
+        <div
           v-for="(timing, index) in timings"
           :key="index"
           :class="timing[INTERFACE.END_VALUE] ? 'timeline_interval' : 'timeline_point'"
           :style="inferTimingStyle(timing)"
           @click="onInput(timing)"
-        ></button>
+        ></div>
+        <play-head
+        />
       </div>
     </div>
 
@@ -68,6 +74,8 @@
 </template>
 
 <script>
+import PlayHead from './PlayHead';
+
 const INTERFACE = {
   LABEL: 'label',
   VALUE: 'value',
@@ -162,6 +170,11 @@ export default {
       }
       return returnObj;
     },
+
+    onDrop(evt, timing) {
+      console.log('DROP!!', evt)
+      console.log(timing)
+    },
   },
 
   watch: {
@@ -171,6 +184,10 @@ export default {
       },
       immediate: true,
     }
+  },
+
+  components: {
+    PlayHead
   },
 };
 </script>
