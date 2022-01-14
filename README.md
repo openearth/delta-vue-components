@@ -62,3 +62,6 @@ $ npm install @vue/test-utils
 $ cd ../../
 $ npm run hoist
 ```
+
+## ⚠️ TGS dependency ⚠️
+For the timeline functionality we use an unpublished dependency https://github.com/gena/mapbox-gl-js/releases/download/v1.6.0-tiled-video-0.3/mapbox-gl-v1.6.0-dev.tgz in the demo-app. Therefore you may have to use `yarn` or use `npm install --force` in the root folder for things to work.
