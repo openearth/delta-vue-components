@@ -53,29 +53,30 @@
       v-if="mode === 'timeline'"
       class="px-2"
     >
-      <div class="timeline_bar"
-        @drop="onDrop"
-        @dragover.prevent
-        @dragenter.prevent
-      >
+      <div class="timeline_bar">
         <div
           v-for="(timing, index) in timings"
+          :id="'t' + index"
           :key="index"
           :class="timing[INTERFACE.END_VALUE] ? 'timeline_interval' : 'timeline_point'"
           :style="inferTimingStyle(timing)"
           @click="onInput(timing)"
         ></div>
         <play-head
+          :timings="timings"
+          :active-timing="internalValue"
+          :snap="true"
+          @drag-end="onPlayHeadDragEnd"
         />
       </div>
     </div>
-
   </v-sheet>
 </template>
 
 <script>
 import PlayHead from './PlayHead';
 
+// @TODO :: Update interface to chosen spec
 const INTERFACE = {
   LABEL: 'label',
   VALUE: 'value',
@@ -171,9 +172,8 @@ export default {
       return returnObj;
     },
 
-    onDrop(evt, timing) {
-      console.log('DROP!!', evt)
-      console.log(timing)
+    onPlayHeadDragEnd({ percentage, timing }) {
+      if(timing) this.onInput(timing);
     },
   },
 
@@ -201,10 +201,17 @@ export default {
     height: 20px;
   }
 
+  // @FIX :: Overlapping elements make it that when dropping
+  // the playhead on a point that is 'over' the end of an interval,
+  // it will still 'emit' the interval value because that is the
+  // first it finds in the array.
+  // Same for snapping, it will snap to the point but will 'emit'
+  // the value of the array.
   &_point,
   &_interval {
     position: absolute;
     height: 100%;
+    cursor: pointer;
 
     &::after {
       position: absolute;

@@ -74,11 +74,10 @@ export default {
     ...mapMutations(['map/setRasterLayers']),
 
     onTimingSelection(selection) {
-      console.log(selection);
       const beginTotal = new Date(this.rasterLayers[0].source.dateBegin);
       const endTotal = new Date(this.rasterLayers[0].source.dateEnd);
       const totalDuration = endTotal - beginTotal;
-      const beginSelection = new Date(selection.value);
+      const beginSelection = selection.value;
 
       // If we have an interval, we jump to the middle of that interval,
       // otherwise we just jump to the point
@@ -93,10 +92,12 @@ export default {
     },
 
     buildLayer() {
-      const numTimings = this.timings.length;
+      const { timings } = this;
+      const numTimings = timings.length;
       if(!numTimings) return;
-      const dateBegin = this.timings[0].value;
-      const dateEnd = this.timings[numTimings - 1].endValue;
+      const dateBegin = timings[0].value;
+      const lastTiming = timings[timings.length - 1];
+      const dateEnd = lastTiming.endValue || lastTiming.value;
       const source = { ...TILED_VIDEO_EXAMPLE_LAYER.source, dateBegin, dateEnd };
 
       this['map/setRasterLayers']([ { ...TILED_VIDEO_EXAMPLE_LAYER, source } ]);
