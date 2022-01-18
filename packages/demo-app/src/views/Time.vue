@@ -77,11 +77,11 @@ export default {
       const beginTotal = new Date(this.rasterLayers[0].source.dateBegin);
       const endTotal = new Date(this.rasterLayers[0].source.dateEnd);
       const totalDuration = endTotal - beginTotal;
-      const beginSelection = selection.value;
+      const beginSelection = selection.t1;
 
       // If we have an interval, we jump to the middle of that interval,
       // otherwise we just jump to the point
-      const selectionMiddle = selection.endValue ? (new Date(selection.endValue) - beginSelection) / 2 : 0;
+      const selectionMiddle = selection.t2 ? (new Date(selection.t2) - beginSelection) / 2 : 0;
 
       const passedDuration = beginSelection - beginTotal + selectionMiddle;
       const playheadFraction = passedDuration / totalDuration;
@@ -95,9 +95,9 @@ export default {
       const { timings } = this;
       const numTimings = timings.length;
       if(!numTimings) return;
-      const dateBegin = timings[0].value;
+      const dateBegin = timings[0].t1;
       const lastTiming = timings[timings.length - 1];
-      const dateEnd = lastTiming.endValue || lastTiming.value;
+      const dateEnd = lastTiming.t2 || lastTiming.t1;
       const source = { ...TILED_VIDEO_EXAMPLE_LAYER.source, dateBegin, dateEnd };
 
       this['map/setRasterLayers']([ { ...TILED_VIDEO_EXAMPLE_LAYER, source } ]);
@@ -154,10 +154,10 @@ export default {
         .then(res => res.json())
         .then(dates => {
           this.timings = dates.map(({ dateStart, dateEnd }) => ({
-            value: new Date(dateStart),
             label: dateStart.split('-')[0],
-            // randomly create a point or an interval
-            endValue: randomBool() ? new Date(dateEnd) : undefined,
+            t1: new Date(dateStart),
+            // Randomly create a point or an interval
+            t2: randomBool() ? new Date(dateEnd) : undefined,
           }));
           this.buildLayer();
         })

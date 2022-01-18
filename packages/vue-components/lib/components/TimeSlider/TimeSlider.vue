@@ -11,7 +11,7 @@
     >
       <v-btn
         icon
-        :disabled="!timings.length || internalValue[INTERFACE.VALUE] === timings[0][INTERFACE.VALUE]"
+        :disabled="!timings.length || internalValue[INTERFACE.T1] === timings[0][INTERFACE.T1]"
         @click="onInput(timings[currentIndex - 1])"
       >
         <v-icon>mdi-chevron-left</v-icon>
@@ -23,7 +23,7 @@
           hide-details
           :items="timings"
           :item-text="INTERFACE.LABEL"
-          :item-value="INTERFACE.VALUE"
+          :item-value="INTERFACE.T1"
           return-object
           @input="onInput"
           v-model="internalValue"
@@ -31,7 +31,7 @@
       </div>
       <v-btn
         icon
-        :disabled="!timings.length || internalValue[INTERFACE.VALUE] === timings[ timings.length - 1 ][INTERFACE.VALUE]"
+        :disabled="!timings.length || internalValue[INTERFACE.T1] === timings[ timings.length - 1 ][INTERFACE.T1]"
         @click="onInput(timings[currentIndex + 1])"
       >
         <v-icon>mdi-chevron-right</v-icon>
@@ -58,7 +58,7 @@
           v-for="(timing, index) in timings"
           :id="'t' + index"
           :key="index"
-          :class="timing[INTERFACE.END_VALUE] ? 'timeline_interval' : 'timeline_point'"
+          :class="timing[INTERFACE.T2] ? 'timeline_interval' : 'timeline_point'"
           :style="inferTimingStyle(timing)"
           @click="onInput(timing)"
         ></div>
@@ -74,14 +74,13 @@
 </template>
 
 <script>
-import PlayHead from './PlayHead';
+// @TOCHECK :: We're doing some triple-equals '===' checks on DateTime objects.
+// These are passed by reference on timing objects, so the triple-equals check works,
+// but it might be a bit shaky - in future iterations it might be better to check for primitives,
+// for example by using the `getTime()` method and comparing results
 
-// @TODO :: Update interface to chosen spec
-const INTERFACE = {
-  LABEL: 'label',
-  VALUE: 'value',
-  END_VALUE: 'endValue',
-};
+import INTERFACE from './INTERFACE';
+import PlayHead from './PlayHead';
 
 export default {
   props: {
@@ -106,7 +105,7 @@ export default {
   computed: {
     currentIndex() {
       return this.timings.findIndex(timing =>
-        timing[INTERFACE.VALUE] === this.internalValue[INTERFACE.VALUE]);
+        timing[INTERFACE.T1] === this.internalValue[INTERFACE.T1]);
     },
 
     simpleSliderValue: {
@@ -126,8 +125,8 @@ export default {
       const { timings } = this;
       const lastTiming = timings[timings.length - 1];
 
-      const beginDate = timings[0][INTERFACE.VALUE];
-      const endDate = lastTiming[INTERFACE.END_VALUE] || lastTiming[INTERFACE.VALUE];
+      const beginDate = timings[0][INTERFACE.T1];
+      const endDate = lastTiming[INTERFACE.T2] || lastTiming[INTERFACE.T1];
       const totalDuration = endDate - beginDate;
       const beginLabel = timings[0][INTERFACE.LABEL];
       const endLabel = lastTiming[INTERFACE.LABEL];
@@ -159,13 +158,13 @@ export default {
     },
 
     inferTimingStyle(timing) {
-      const durationFromStart = timing[INTERFACE.VALUE] - this.timelineCompounds.beginDate;
+      const durationFromStart = timing[INTERFACE.T1] - this.timelineCompounds.beginDate;
       const percentage = Math.round(durationFromStart / this.timelineCompounds.totalDuration * 100);
       const returnObj = {
         left: percentage + '%',
       }
-      if(timing[INTERFACE.END_VALUE]) {
-        const intervalDuration = timing[INTERFACE.END_VALUE] - timing[INTERFACE.VALUE];
+      if(timing[INTERFACE.T2]) {
+        const intervalDuration = timing[INTERFACE.T2] - timing[INTERFACE.T1];
         const percentage = Math.round(intervalDuration / this.timelineCompounds.totalDuration * 100);
         returnObj.width = percentage + '%';
       }
@@ -173,6 +172,7 @@ export default {
     },
 
     onPlayHeadDragEnd({ percentage, timing }) {
+      console.info(`Percentage played: ${ percentage }%`)
       if(timing) this.onInput(timing);
     },
   },

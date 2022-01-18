@@ -12,6 +12,7 @@
 <script>
 import VDragged from 'v-dragged';
 import debounce from 'lodash.debounce';
+import INTERFACE  from './INTERFACE';
 
 export default {
   directives: {
@@ -142,10 +143,11 @@ export default {
 
     activeTiming: {
       handler(newTiming) {
-        if(this.internalActiveTiming?.value === newTiming.value) return;
+        // @TOCHECK :: Using T1 as a unique identifier, check if this is scalable
+        if(this.internalActiveTiming?.[INTERFACE.T1] === newTiming[INTERFACE.T1]) return;
         this.$nextTick(() => {
           const { rect: { x } } = this.timingsWithPosition
-            .find(t => t.timing.value === newTiming.value);
+            .find(t => t.timing[INTERFACE.T1] === newTiming[INTERFACE.T1]);
 
           this.$el.style.left = (x - this.boundLeft) + 'px';
           this.internalActiveTiming = newTiming;
