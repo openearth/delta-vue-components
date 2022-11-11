@@ -48,9 +48,9 @@ export default {
       type: Object,
       default: () => ({ left: 0, right: 0, top: 0, bottom: 0 }),
       validator: value => {
-        return Object.prototype.hasOwnProperty.call(value, 'top') || 
-               Object.prototype.hasOwnProperty.call(value, 'right') || 
-               Object.prototype.hasOwnProperty.call(value, 'bottom') || 
+        return Object.prototype.hasOwnProperty.call(value, 'top') ||
+               Object.prototype.hasOwnProperty.call(value, 'right') ||
+               Object.prototype.hasOwnProperty.call(value, 'bottom') ||
                Object.prototype.hasOwnProperty.call(value, 'left')
       }
     },
@@ -58,14 +58,19 @@ export default {
   watch: {
     padding: {
       handler: function(newValue) {
-        this.$refs.vmapbox.map.setPadding(newValue)
+        const map = this.$refs.vmapbox.map;
+        if(map.setPadding) {
+          map.setPadding(newValue)
+        }
       },
       deep: true,
     },
   },
   mounted() {
     const map = this.$refs.vmapbox.map
-    map.setPadding(this.padding)
+    if(map.setPadding) {
+      map.setPadding(this.padding)
+    }
 
     // Map events: https://docs.mapbox.com/mapbox-gl-js/api/map/#map-events
     map.on('resize', event => this.$emit('resize', event))

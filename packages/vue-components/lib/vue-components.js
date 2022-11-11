@@ -6,6 +6,7 @@ import MapboxMap from './components/MapboxMap';
 import MapboxWmsLayer from './components/MapboxWmsLayer';
 import MapLayerControls from './components/MapLayerControls';
 import LegalDialog from './components/LegalDialog';
+import TimeSlider from './components/TimeSlider';
 
 export {
   AppHeader,
@@ -16,4 +17,5 @@ export {
   MapboxMap,
   MapboxWmsLayer,
   MapLayerControls,
+  TimeSlider,
 };
