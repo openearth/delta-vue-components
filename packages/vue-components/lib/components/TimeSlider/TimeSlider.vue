@@ -1,5 +1,5 @@
 <template>
-  <v-sheet
+  <v-card
     v-if="timings.length"
     class="time-slider px-2 py-4"
     elevation="1"
@@ -70,7 +70,7 @@
         />
       </div>
     </div>
-  </v-sheet>
+  </v-card>
 </template>
 
 <script>
