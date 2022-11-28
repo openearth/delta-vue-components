@@ -8,7 +8,7 @@
     :center="center"
     :zoom="zoom"
   >
-    <slot></slot>
+    <slot />
   </v-mapbox>
 </div>
 </template>
@@ -78,7 +78,6 @@ export default {
     map.on('error', event => this.$emit('error', event))
     map.on('webglcontextlost', event => this.$emit('webglcontextlost', event))
     map.on('webglcontextrestored', event => this.$emit('webglcontextrestored', event))
-
 
     // Data loading events: https://docs.mapbox.com/mapbox-gl-js/api/map/#events-data-loading
     map.on('data', event => this.$emit('data', event))

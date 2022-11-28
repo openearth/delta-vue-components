@@ -1,27 +1,40 @@
 import buildGeoserverUrl from './build-geoserver-url';
-import wms from './wms';
 
-export default ({ url, id, layer, style='', paint={} }) => {
+const defaultUrl = process.env.VUE_APP_GEOSERVER_BASE_URL
+
+export default ({ url: rawUrl = defaultUrl, id, layer, styles = '', paint = {}, tileSize = 256, time, filter, version }) => {
+  const url = new URL(rawUrl)
+  const searchParamEntries = url.searchParams.entries()
+  const searchParamsObject = Object.fromEntries(searchParamEntries)
+
   const tile = buildGeoserverUrl({
-    url,
+    url: url.origin + url.pathname,
     service: 'WMS',
     request: 'GetMap',
     layers: layer,
-    style,
+    styles,
     width: 256,
     height: 256,
-    srs: 'EPSG:3857',
+    version,
+    ...(time) && { time: time },
+    ...(filter) && { cql_filter: filter },
+    crs: 'EPSG:3857',
     transparent: true,
     bbox: '{bbox-epsg-3857}',
     format: 'image/png',
-    encode: false
-  });
-
-  return wms({
+    encode: false,
+    ...searchParamsObject,
+  })
+  
+  return {
     id,
     layer,
-    tiles: [ tile ],
-    tileSize: 256,
-    paint
-  });
-};
+    type: 'raster',
+    source: {
+      type: 'raster',
+      tiles: [ tile ],
+      tileSize,
+    },
+    paint,
+  }
+}

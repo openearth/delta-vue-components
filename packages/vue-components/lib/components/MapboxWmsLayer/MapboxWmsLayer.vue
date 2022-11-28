@@ -3,6 +3,10 @@
 </template>
 
 <script>
+import {
+  getWmsCapabilities,
+  getLayerProperties,
+} from '@deltares/utilities/lib/ogc-services/get-capabilities'
 import { buildWmsLayer } from '@deltares/utilities'
 
 export default {
@@ -11,17 +15,47 @@ export default {
     layer: {
       type: Object,
       required: true,
+    },
+    capabilities: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      options: {},
     }
   },
+
+  mounted() {
+    if (this.capabilities) {
+      console.log(this.layer)
+      getWmsCapabilities(this.layer.url)
+        .then((capabilities) =>
+          getLayerProperties(capabilities, this.layer.layer)
+        )
+        .then(({ serviceType, timeExtent, wmsVersion, bbox }) => {
+          this.options = buildWmsLayer({
+            ...this.layer,
+            ...{ serviceType: serviceType },
+            ...{ timeExtent: timeExtent },
+            ...{ version: wmsVersion },
+            ...{ bbox: bbox },
+          })
+        })
+    } else {
+      this.options = buildWmsLayer(this.layer)
+    }
+
+    console.log(this.options)
+  },
+
   methods: {
     deferredMountedTo(map) {
       this.$refs.layer.deferredMountedTo(map)
     },
-  },
-  computed: {
-    options() {
-      return buildWmsLayer(this.layer)
-    }
   },
 }
 </script>
