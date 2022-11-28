@@ -1,7 +1,7 @@
 /** @typedef {import('./useSelected').SelectedIds} */
 /** @typedef {{ value: String }} ActiveLegend */
 
-import { ref, watch } from '@vue/composition-api'
+import { ref, watch } from 'vue'
 import last from '../../utils/last'
 
 export default function useLegend(selectedIds) {
