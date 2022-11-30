@@ -1,6 +1,6 @@
 /** @typedef {String[]} SelectedIds */
 /** @typedef {{ value: SelectedIds }} SelectedIdsRef */
-import { ref } from '@vue/composition-api'
+import { ref } from 'vue'
 
 /** @type {SelectedIds} */
 const selectedIds = ref([])

@@ -15,7 +15,7 @@
       slot="map"
       :access-token="accessToken"
     >
-      <mapbox-wms-layer v-for="layer in wmsLayers" :key="layer.id" :layer="layer" />
+      <mapbox-wms-layer v-for="layer in wmsLayers" :key="layer.id" :layer="layer"/>
     </mapbox-map>
 
   </app-shell>
@@ -24,7 +24,6 @@
 <script>
 import { mapState } from 'vuex'
 import { AppShell, MapboxMap, MapboxWmsLayer, LegalDialog } from '@deltares/vue-components'
-
 
 export default {
   components: {
