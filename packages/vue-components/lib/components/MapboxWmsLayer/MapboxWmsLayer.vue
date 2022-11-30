@@ -31,7 +31,6 @@ export default {
 
   mounted() {
     if (this.capabilities) {
-      console.log(this.layer)
       getWmsCapabilities(this.layer.url)
         .then((capabilities) =>
           getLayerProperties(capabilities, this.layer.layer)
@@ -48,8 +47,6 @@ export default {
     } else {
       this.options = buildWmsLayer(this.layer)
     }
-
-    console.log(this.options)
   },
 
   methods: {

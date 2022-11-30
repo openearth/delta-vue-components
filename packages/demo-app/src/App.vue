@@ -15,7 +15,7 @@
       slot="map"
       :access-token="accessToken"
     >
-      <mapbox-wms-layer v-for="layer in wmsLayers" :key="layer.id" :layer="layer" :capabilities="true" />
+      <mapbox-wms-layer v-for="layer in wmsLayers" :key="layer.id" :layer="layer"/>
     </mapbox-map>
 
   </app-shell>
