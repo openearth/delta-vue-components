@@ -24,10 +24,7 @@
         :key="layer.id"
         :layer="layer"
       />
-      <mapbox-select-point-control
-        draw-mode="static"
-        @click="handleFeatureClick"
-      />
+      <map-layer-info v-if="wmsLayers[0]" :layer="wmsLayers[0]" />
     </mapbox-map>
   </app-shell>
 </template>
@@ -39,9 +36,8 @@ import {
   MapboxMap,
   MapboxWmsLayer,
   LegalDialog,
+  MapLayerInfo,
 } from '@deltares/vue-components'
-import MapboxSelectPointControl from '@/components/MapboxSelectPointControl'
-import { getFeatureInfo } from '@deltares/utilities/lib/ogc-services/get-feature-info'
 
 export default {
   components: {
@@ -49,7 +45,7 @@ export default {
     MapboxMap,
     MapboxWmsLayer,
     LegalDialog,
-    MapboxSelectPointControl,
+    MapLayerInfo,
   },
   data: () => ({
     accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
@@ -60,17 +56,6 @@ export default {
     ...mapState({
       wmsLayers: ({ map }) => map.wmsLayers,
     }),
-  },
-  methods: {
-    async handleFeatureClick(clickData) {
-      const feature = await getFeatureInfo({
-        url: this.selectedLayerForSelection.url,
-        layer: this.selectedLayerForSelection.layer,
-        ...clickData,
-      })
-
-      console.log(feature)
-    },
   },
 }
 </script>

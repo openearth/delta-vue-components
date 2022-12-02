@@ -36,12 +36,6 @@ export default {
             "layer": "ra2ce:plasvorming_stremmingskosten",
             "url": "https://ra2ce.openearth.eu/geoserver/ows"
           },
-          {
-            "id": "visgegevens_uit_aquadesk_api",
-            "name": "Visgegevens uit Aquadesk API",
-            "layer": "wie_ddecoapi:fish",
-            "url": "https://rwsprojectarchief.openearth.nl/geoserver/ows"
-          }
         ]
       }
     ]
