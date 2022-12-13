@@ -1,21 +1,32 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Home from '../views/Home.vue';
-import About from '../views/About.vue';
+const Layers = () => import('../views/Layers.vue')
+const Download = () => import('../views/Download.vue')
+const DownloadGeoserver = () => import('../views/DownloadGeoserver.vue')
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'layers',
+    component: Layers
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About
+    path: '/download',
+    component: Download,
+    children: [
+      {
+        path: '/',
+        redirect: 'geoserver',
+      },
+      {
+        path: 'geoserver',
+        name: 'download.geoserver',
+        component: DownloadGeoserver,
+      },
+    ],
   },
 ];
 
