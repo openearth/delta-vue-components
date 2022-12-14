@@ -95,13 +95,7 @@ export default {
     async getAttributesToFilter() {
       const { serviceType, url, layer, downloadLayer } = this.selectedLayerData
       const layerName = downloadLayer ? downloadLayer : layer
-
-      console.log({
-        serviceType,
-        url,
-        layer,
-        downloadLayer,
-      })
+      
       if (serviceType === 'wfs') {
         const response = await describeFeatureType({
           url,
