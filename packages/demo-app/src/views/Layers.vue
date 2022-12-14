@@ -33,6 +33,14 @@ export default {
             layer: 'ra2ce:plasvorming_stremmingskosten',
             url: 'https://ra2ce.openearth.eu/geoserver/ows',
           },
+          {
+            id: 'macroinvertebraten_uit_aquadesk_api',
+            name: 'Macroinvertebraten uit Aquadesk API',
+            layer: 'wie_ddecoapi:macroinvertebrates',
+            url: 'https://rwsprojectarchief.openearth.nl/geoserver/ows',
+            serviceType: 'wfs',
+            downloadLayer: 'wie_ddecoapi:macroinvertebrates_all'
+          },
         ],
       },
     ],

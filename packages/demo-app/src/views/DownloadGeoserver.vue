@@ -44,10 +44,7 @@
 
 <script>
 import { mapState } from 'vuex'
-// import {
-//   describeFeatureType,
-//   readFeatureProperties,
-// } from '~/lib/wfs-filter-helpers'
+import { describeFeatureType, wfsFilterHelpers } from '@deltares/utilities'
 
 export default {
   data: () => ({
@@ -82,14 +79,13 @@ export default {
     },
 
     selectedLayerData() {
-      return this.activeLayers.find((layer) => layer.id === this.downloadLayer)
+      return this.wmsLayers.find((layer) => layer.id === this.downloadLayer)
     },
   },
 
   watch: {
     wmsLayers(val, oldVal) {
       if (val !== oldVal) {
-        // if activeFlattenedLayerIds change, reset selected layers in dropdown.
         this.downloadLayer = null
       }
     },
@@ -97,15 +93,23 @@ export default {
 
   methods: {
     async getAttributesToFilter() {
-      // const { serviceType, url, layer, downloadLayer } = this.selectedLayerData
-      // const layerName = downloadLayer ? downloadLayer : layer
-      // if (serviceType === 'wfs') {
-      //   const response = await describeFeatureType({
-      //     url,
-      //     layer: layerName,
-      //   })
-      //   this.availableFiltersForSelectedLayer = readFeatureProperties(response)
-      // }
+      const { serviceType, url, layer, downloadLayer } = this.selectedLayerData
+      const layerName = downloadLayer ? downloadLayer : layer
+
+      console.log({
+        serviceType,
+        url,
+        layer,
+        downloadLayer,
+      })
+      if (serviceType === 'wfs') {
+        const response = await describeFeatureType({
+          url,
+          layer: layerName,
+        })
+        this.availableFiltersForSelectedLayer =
+          wfsFilterHelpers.readFeatureProperties(response)
+      }
     },
   },
 }

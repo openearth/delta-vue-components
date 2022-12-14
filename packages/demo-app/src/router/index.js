@@ -1,17 +1,17 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 const Layers = () => import('../views/Layers.vue')
 const Download = () => import('../views/Download.vue')
 const DownloadGeoserver = () => import('../views/DownloadGeoserver.vue')
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'layers',
-    component: Layers
+    component: Layers,
   },
   {
     path: '/download',
@@ -28,12 +28,12 @@ const routes = [
       },
     ],
   },
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+export default router

@@ -10,7 +10,7 @@
         <template v-for="tab in tabs">
           <v-tab
             :key="tab.name"
-            :to="`${tab.page}`"
+            :to="tab.page"
             :ripple="false"
             :exact-path="tab.page === '/'"
             :disabled="tab.disabled"
@@ -23,11 +23,9 @@
 
       <v-divider />
 
-      <transition name="fade" mode="out-in">
-        <keep-alive>
-          <router-view />
-        </keep-alive>
-      </transition>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </app-sidebar>
 
     <legal-dialog
