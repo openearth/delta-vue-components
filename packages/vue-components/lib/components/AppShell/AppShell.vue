@@ -14,7 +14,6 @@
     </app-header>
 
     <v-main>
-      <router-view />
       <slot />
       <slot name="map" />
     </v-main>
