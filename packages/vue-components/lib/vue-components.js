@@ -7,6 +7,7 @@ import MapboxWmsLayer from './components/MapboxWmsLayer';
 import MapLayerControls from './components/MapLayerControls';
 import LegalDialog from './components/LegalDialog';
 import MapLayerInfo from './components/MapLayerInfo';
+import DownloadFormatChooser from './components/DownloadFormatChooser';
 
 export {
   AppHeader,
@@ -17,5 +18,6 @@ export {
   MapboxMap,
   MapboxWmsLayer,
   MapLayerControls,
-  MapLayerInfo
+  MapLayerInfo,
+  DownloadFormatChooser
 };

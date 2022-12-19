@@ -1,4 +1,5 @@
-import { map, pipe } from 'ramda'
+import { map, pipe, uniq } from 'ramda'
+import { WCS_LAYER_TYPE, WFS_LAYER_TYPE } from '../constants'
 
 const getTagContent = (tag) => tag.textContent
 const getParentNode = (tag) => tag.parentNode
@@ -32,6 +33,30 @@ function readBbox(bboxElement) {
   return bbox
 }
 
+function createParameters(type) {
+  if (type === WCS_LAYER_TYPE) {
+    return 'service=WCS&request=GetCapabilities'
+  }
+  if (type === WFS_LAYER_TYPE) {
+    return 'service=WFS&request=GetCapabilities'
+  }
+}
+
+export async function getCapabilities(service, type) {
+  /**
+   * GetCapabilities wfs or wcs based on the input type
+   * create parameters and make the request
+   * parse it as a dom element
+   */
+  const _type = type
+  const serviceUrl = new URL(service)
+  const servicePath = `${serviceUrl.origin}${serviceUrl.pathname}`
+  const data = await fetch(`${servicePath}?${createParameters(_type)}`).then(
+    (res) => res.text()
+  )
+  return new DOMParser().parseFromString(data, 'text/xml')
+}
+
 export async function getWmsCapabilities(service) {
   /**
    * The getWmsCapabilitis is made when a layer is clicked.
@@ -46,6 +71,33 @@ export async function getWmsCapabilities(service) {
   ).then((res) => res.text())
 
   return new DOMParser().parseFromString(data, 'text/xml')
+}
+
+export function getSupportedOutputFormats(type, capabilities) {
+  //wfs
+  const outputFormats = pipe(
+    () => [...capabilities.querySelectorAll('[name="outputFormat"]')],
+    getTags('ows:AllowedValues'),
+    getTags('ows:Value'),
+    map(getTagContent),
+    uniq
+  )
+  //wcs
+  const formatSupported = pipe(
+    () => capabilities,
+    (el) => el.getElementsByTagName('wcs:Capabilities'),
+    getTags('wcs:ServiceMetadata'),
+    getTags('wcs:formatSupported'),
+    map(getTagContent)
+  )
+
+  if (type === WCS_LAYER_TYPE) {
+    return formatSupported()
+  }
+
+  if (type === WFS_LAYER_TYPE) {
+    return outputFormats()
+  }
 }
 
 export function getLayerProperties(capabilities, layer) {
@@ -67,7 +119,11 @@ export function getLayerProperties(capabilities, layer) {
   )()
 
   const bbox = pipe(
-    () => [...capabilities.querySelectorAll('[queryable="1"], [queryable="0"], [opaque="0"]')],
+    () => [
+      ...capabilities.querySelectorAll(
+        '[queryable="1"], [queryable="0"], [opaque="0"]'
+      ),
+    ],
     getTags('Name'),
     findLayer(layer),
     getParentNode,
@@ -76,7 +132,11 @@ export function getLayerProperties(capabilities, layer) {
   )()
 
   const keywords = pipe(
-    () => [...capabilities.querySelectorAll('[queryable="1"], [queryable="0"], [opaque="0"]')],
+    () => [
+      ...capabilities.querySelectorAll(
+        '[queryable="1"], [queryable="0"], [opaque="0"]'
+      ),
+    ],
     getTags('Name'),
     findLayer(layer),
     getParentNode,
@@ -93,7 +153,11 @@ export function getLayerProperties(capabilities, layer) {
     : null
 
   const timeExtent = pipe(
-    () => [...capabilities.querySelectorAll('[queryable="1"], [queryable="0"], [opaque="0"]')],
+    () => [
+      ...capabilities.querySelectorAll(
+        '[queryable="1"], [queryable="0"], [opaque="0"]'
+      ),
+    ],
     getTags('Name'),
     findLayer(layer),
     getParentNode,
