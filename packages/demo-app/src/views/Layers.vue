@@ -1,0 +1,60 @@
+<template>
+  <layer-list-controls
+    :layers="layers"
+    @active-layers-change="onActiveLayerChange"
+    @layer-sorting-change="onLayerSortingChange"
+  />
+</template>
+
+<script>
+import { mapMutations } from 'vuex'
+import { LayerListControls } from '@deltares/vue-components'
+
+export default {
+  name: 'Home',
+  components: {
+    LayerListControls,
+  },
+  data: () => ({
+    layers: [
+      {
+        id: 'geological-layout1',
+        name: 'Geological Layout',
+        children: [
+          {
+            id: 'plasvorming_herstelkosten',
+            name: 'Plasvorming Herstelkosten',
+            layer: 'ra2ce:plasvorming_herstelkosten',
+            url: 'https://ra2ce.openearth.eu/geoserver/ows',
+          },
+          {
+            id: 'plasvorming_stremmingskosten',
+            name: 'Plasvorming Stremmingskosten',
+            layer: 'ra2ce:plasvorming_stremmingskosten',
+            url: 'https://ra2ce.openearth.eu/geoserver/ows',
+          },
+          {
+            id: 'macroinvertebraten_uit_aquadesk_api',
+            name: 'Macroinvertebraten uit Aquadesk API',
+            layer: 'wie_ddecoapi:macroinvertebrates',
+            url: 'https://rwsprojectarchief.openearth.nl/geoserver/ows',
+            serviceType: 'wfs',
+            downloadLayer: 'wie_ddecoapi:macroinvertebrates_all'
+          },
+        ],
+      },
+    ],
+  }),
+  methods: {
+    ...mapMutations(['map/setWmsLayers']),
+
+    onActiveLayerChange(event) {
+      this['map/setWmsLayers'](event)
+    },
+
+    onLayerSortingChange(sortedLayers) {
+      this.layers = sortedLayers
+    },
+  },
+}
+</script>

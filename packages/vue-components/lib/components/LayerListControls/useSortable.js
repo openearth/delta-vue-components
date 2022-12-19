@@ -1,4 +1,4 @@
-import { ref, watch, nextTick, onMounted } from '@vue/composition-api'
+import { ref, watch, nextTick, onMounted } from 'vue'
 import { Sortable } from "sortablejs";
 import reorderLayerArray from "./reorder-layers-array";
 

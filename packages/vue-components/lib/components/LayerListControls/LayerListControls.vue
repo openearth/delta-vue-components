@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { watch, ref, toRefs, computed } from '@vue/composition-api'
+import { watch, ref, toRefs, computed } from 'vue'
 import addIndex from './add-index'
 import findInTree from './find-in-tree'
 import addParentIdToLayers from './add-parent-id-to-layers'
